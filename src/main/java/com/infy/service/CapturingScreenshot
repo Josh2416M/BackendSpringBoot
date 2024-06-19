@@ -1,0 +1,178 @@
+
+@Component
+public class CapturingScreenshot{
+
+  private static final Logger log = LoggerFactory.getLogger(CapturingScreenshot.class);
+	private static WebDriver driver;
+	private static List<String> fileNames = new ArrayList<String>();
+	public static String pdfFile;
+	public static String path;
+
+public static void captureScreenshot(String days, String app, boolean pdf) throws IOException{
+  SendEmail sendemail = new SendEmail();
+
+  UploadFile upload = new UploadFile();
+
+try{
+    // get date in desired format
+
+  Date date = new Date();
+  SimpleDateFormat  df = new SimpleDateFormat("dd/MMM/yyyy")
+
+  String dateOnly =df.format(date);
+String d = dateOnly.replaceAll("/","")
+
+// adding pngs to files list
+String fileName = app+"_"+ days + "Days_"+date+".png";
+
+fileNames.add(fileName)
+
+
+File shot = ((TakeScreenshot) driver).getScreenshotAs(OutputType.FILE);
+// crop screenshot
+
+BufferedImage bi = ImageIO.read(shot);
+BufferedImage i = bi.getSubimage(260,100,1460,675);
+
+// save 
+
+String currDir = System.getProperty("user.dir")+"/"
+File outFile = new File(currDir + fileName);
+
+// delete 
+
+if (outputFile.delete()){
+log.info("Delete the file : "+ outputFile.getName());
+}else{
+log.info("NO existing file found: " + outputFile.getName())
+}
+
+ImageIO.write(image,"png",outFile);
+
+
+if(pdf){
+
+path = currDir+ date + "_app_report.pdf";
+
+pdffile = date + "_app_report.pdf";
+
+PdfWriter writer = new PdfWriter (path);
+PdfDocument doc = new PdfDocument(writer);
+
+doc.addNewPage();
+
+doc.addNewPage();
+
+Document d = new Document(doc,PageSize.A4);
+
+Paragraph p1 = new Paragraph("aldsjf");
+Paragraph p4 = new Paragraph("ladf")
+p1.setTextAlignment(TextAlignment.CENTER);
+d.add(p1.setFontSize(20f));
+d.add(new Paragraph("\n"));
+d.add(p4);
+d.add(new Paragraph("\n"));
+d.add(p5).setFixedPosition(2,5,500,0);
+
+float left = 0, bottom = 0;
+
+int i =0 ;
+
+for (String file: fileNames){
+if (){
+left = 20;
+bottom =455;
+
+}else if (i==1){
+left =20;
+bottom =100;
+}
+else if (i==2)
+{
+left =20;
+bottom =490;
+
+}
+else if (i==3)
+{
+left =20;
+bottom =150;
+
+}
+
+ImageData id = ImageDataFactory.create(currDir+file);
+
+Image img = new Image(id);
+
+Image scaledImg = img.scaleToFit(560,560);
+
+if(i==0 || i==1)
+{
+Image fixedScaledImg = scaledImg.setFixedPosition(1,left,bottom);
+d.add(fixedScaledImg);
+}
+else{
+
+Image fixedScaledImg = scaledImg.setFixedPosition(2,left,bottom);
+d.add(fixedScaledImg);
+
+}
+i++;
+
+}
+d.close();
+log.info("pdf"+pdfFile);
+upload.Upload();
+
+sendemail.Email();
+
+File folder = new File(currDir);
+
+log.info("cleaning temp png pdf files );
+
+for (File f1 : folder.listFiles())
+
+{
+if (f1.getName().endWith(".png")  || f1.getName().endsWith(".pdf")){
+String name = f1.getName();
+if(f1.delete()){
+log.info("Deleted"+name);
+}
+}
+}
+}
+
+
+
+
+
+
+
+
+}catch(Exception e){
+log.info(e.toString));
+}
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+public static void setDriver (WebDriver webDriver){
+driver = webDriver;
+}
+
+	
+  
+	
+}
