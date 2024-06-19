@@ -1,0 +1,37 @@
+@Component
+
+public class UploadFile{
+
+public void upload() throws Exception {
+
+Reader reader  = new FileReader("src/main/resources/config.json")
+
+BoxConfig bc = BoxConfig.readFrom(reader);
+
+BoxDeveloperEditionAPIConnection api = BoxDeveloperEditionAPIConnection.getAppEnterpriseConnection(bc);
+
+// uploading to box reference folder number
+BoxFolder rootFolder = new BoxFolder(api,"123214");
+FileInputStream steam = new FileInputStream(CapturingScreenshot.pdfFile);
+log.info(CapturingScreenshot.pdfFile);
+
+BoxFile.Info newFileinfo = rootFolder.uploadFile(stream,CapturingScreenshot.pdfFile);
+
+
+
+stream.close();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
