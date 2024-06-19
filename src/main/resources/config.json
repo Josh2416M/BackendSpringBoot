@@ -1,0 +1,22 @@
+To connect to any otther application like cloud ,BOX, SLACk etc..
+
+{
+  "boxAppSettings":{
+
+    "clientID":
+
+    "clientSecret":
+    "appAuth":{
+        "publicKeyID":
+        "privateKey":
+        "passphrase":
+      
+      
+      
+    }
+
+  },
+"enterpriseID":
+
+
+}
